@@ -6,7 +6,7 @@ import { Box, Container } from "@mui/material";
 import { useEffect, useState } from "react";
 
 export default function BodySection() {
-	const [currDate, setCurrDate] = useState(null);
+	const [currDate, setCurrDate] = useState({label: 'Today', value: 'today'});
 	return (
 		<div>
 			<BodyHeaderSection />

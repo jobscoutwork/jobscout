@@ -17,6 +17,7 @@ export default function CardSection({ currDate }) {
     (async function getAllJobsData() {
       try {
 		let temp = 1;
+    console.log(`currDate ${currDate}`)
 		if(currDate.value=="today"){
 			temp = 1;
 		}else if(currDate.value="3_days_ago"){
@@ -38,11 +39,15 @@ export default function CardSection({ currDate }) {
 	const getPreviousDates = (value) => {
 		const previousDates = [];
 		const currentDate = dayjs().startOf("day"); // Get current date
-
-		for (let i = 0; i < value; i++) {
-			const date = currentDate.subtract(i, "day").format("YYYY-MM-DD");
-			previousDates.push(date);
-		}
+    if(value>1){
+      for (let i = 1; i < value; i++) {
+        const date = currentDate.subtract(i, "day").format("YYYY-MM-DD");
+        previousDates.push(date);
+      }
+    }else{
+      const date = currentDate.subtract(0, "day").format("YYYY-MM-DD");
+      previousDates.push(date);
+    }
 
 		return previousDates;
 	};
