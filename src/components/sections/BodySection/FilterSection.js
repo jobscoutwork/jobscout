@@ -42,18 +42,16 @@ const FilterSection = ({ currDate, setCurrDate }) => {
 						Refine your search using the following filters:
 					</Typography>
 				</div>
-				<LocalizationProvider dateAdapter={AdapterDayjs}>
-					<DatePicker
-						label="Helper text example"
-						slotProps={{
-							textField: {
-								//helperText: 'MM/DD/YYYY',
-							},
-						}}
-						value={selectedDate}
-						onChange={handleDate}
-					/>
-				</LocalizationProvider>
+
+				<CustomSelectInput
+					title="Date Posted"
+					options={[
+						{ label: "Today", value: "today" },
+						{ label: "3 days ago", value: "3_days_ago" },
+						{ label: "1 week ago", value: "1_week_ago" },
+					]}
+				/>
+
 				<CustomSelectInput title="Salary Estimate" />
 				<CustomSelectInput title="Job Type" />
 				<CustomTextField title="Company Name" />
