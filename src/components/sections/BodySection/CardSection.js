@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import CustomCard from "../../common/CustomCard";
 import axios from "axios";
 import PageLoader from "../../common/LoadingIndicators/PageLoader";
+import dayjs from "dayjs";
 
 export default function CardSection({ currDate }) {
   //const apiUrl = 'http://13.126.41.77';
@@ -15,8 +16,17 @@ export default function CardSection({ currDate }) {
   useEffect(() => {
     (async function getAllJobsData() {
       try {
-        const resp = await axios.get(`${apiUrl}/data/v1/${currDate}`);
-		console.log(`got data for ${currDate}`)
+		let temp = 1;
+		if(currDate.value=="today"){
+			temp = 1;
+		}else if(currDate.value="3_days_ago"){
+			temp = 3;
+		}else if(currDate.value="1_week_ago"){
+			temp = 7;
+		}
+		const result = getPreviousDates(temp);
+        const resp = await axios.get(`${apiUrl}/data/v2/${result}`);
+		console.log(`got data for ${result}`)
         setAllJobs(resp.data);
         setLoading(false);
       } catch (error) {
@@ -24,6 +34,18 @@ export default function CardSection({ currDate }) {
       }
     })();
   }, [currDate]);
+
+	const getPreviousDates = (value) => {
+		const previousDates = [];
+		const currentDate = dayjs().startOf("day"); // Get current date
+
+		for (let i = 0; i < value; i++) {
+			const date = currentDate.subtract(i, "day").format("YYYY-MM-DD");
+			previousDates.push(date);
+		}
+
+		return previousDates;
+	};
 
   // Calculate index of the first and last item to be displayed on the current page
   const indexOfLastItem = currentPage * itemsPerPage;

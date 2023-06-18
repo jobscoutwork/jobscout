@@ -19,15 +19,37 @@ import dayjs from "dayjs";
 
 const FilterSection = ({ currDate, setCurrDate }) => {
 	const [selectedDate, setSelectedDate] = useState(null);
-
-	const handleDate = (date) => {
-		const formattedDate = dayjs(date).format("YYYY-MM-DD");
-        console.log("Formatted Date:", formattedDate);
-		setSelectedDate(formattedDate);
-		setCurrDate(formattedDate);
-		// Perform any additional logic with the selected date
-		console.log("Selected Date:", date);
+    const [temp, setTemp] = useState(0);
+	const handleDate = (value) => {
+		setSelectedDate(value);
+		console.log(value, "result")
+		setCurrDate(value); // Example: updating the currDate state
 	};
+	// const handleDate = (days) => {
+	// 	//let temp ;
+	// 	if(days=="today"){
+	// 		setTemp(0);
+	// 	}else if(days="3_days_ago"){
+	// 		setTemp(3);
+	// 	}else if(days="1_week_ago"){
+	// 		setTemp(7);
+	// 	}
+	// 	const result = getPreviousDates(temp);
+	// 	console.log(days,result, "result")
+	// 	//setSelectedDate(formattedDate);
+	// };
+	
+	// const getPreviousDates = (value) => {
+	// 	const previousDates = [];
+	// 	const currentDate = dayjs().startOf("day"); // Get current date
+
+	// 	for (let i = 0; i < value; i++) {
+	// 		const date = currentDate.subtract(i, "day").format("YYYY-MM-DD");
+	// 		previousDates.push(date);
+	// 	}
+
+	// 	return previousDates;
+	// };
 
 	return (
 		<>
@@ -47,9 +69,10 @@ const FilterSection = ({ currDate, setCurrDate }) => {
 					title="Date Posted"
 					options={[
 						{ label: "Today", value: "today" },
-						{ label: "3 days ago", value: "3_days_ago" },
-						{ label: "1 week ago", value: "1_week_ago" },
+						{ label: "Last 3 days ", value: "3_days_ago" },
+						{ label: "Last 1 week ", value: "1_week_ago" },
 					]}
+					onChange={handleDate}
 				/>
 
 				<CustomSelectInput title="Salary Estimate" />
