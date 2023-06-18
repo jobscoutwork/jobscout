@@ -8,11 +8,27 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import CustomTextField from "../../common/CustomTextField";
 import CustomSelectInput from "../../common/CustomSelectInput";
+import dayjs from "dayjs";
 
-const FilterSection = () => {
+const FilterSection = ({ currDate, setCurrDate }) => {
+	const [selectedDate, setSelectedDate] = useState(null);
+
+	const handleDate = (date) => {
+		const formattedDate = dayjs(date).format("YYYY-MM-DD");
+        console.log("Formatted Date:", formattedDate);
+		setSelectedDate(formattedDate);
+		setCurrDate(formattedDate);
+		// Perform any additional logic with the selected date
+		console.log("Selected Date:", date);
+	};
+
 	return (
 		<>
 			<Box
@@ -26,8 +42,18 @@ const FilterSection = () => {
 						Refine your search using the following filters:
 					</Typography>
 				</div>
-
-				<CustomSelectInput title="Date Posted" />
+				<LocalizationProvider dateAdapter={AdapterDayjs}>
+					<DatePicker
+						label="Helper text example"
+						slotProps={{
+							textField: {
+								//helperText: 'MM/DD/YYYY',
+							},
+						}}
+						value={selectedDate}
+						onChange={handleDate}
+					/>
+				</LocalizationProvider>
 				<CustomSelectInput title="Salary Estimate" />
 				<CustomSelectInput title="Job Type" />
 				<CustomTextField title="Company Name" />

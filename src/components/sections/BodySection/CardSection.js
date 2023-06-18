@@ -4,7 +4,7 @@ import CustomCard from "../../common/CustomCard";
 import axios from "axios";
 import PageLoader from "../../common/LoadingIndicators/PageLoader";
 
-export default function CardSection() {
+export default function CardSection({ currDate }) {
   //const apiUrl = 'http://13.126.41.77';
   const apiUrl = 'http://localhost';
   const [loading, setLoading] = useState(true);
@@ -15,14 +15,15 @@ export default function CardSection() {
   useEffect(() => {
     (async function getAllJobsData() {
       try {
-        const resp = await axios.get(`${apiUrl}/data/v1/1`);
+        const resp = await axios.get(`${apiUrl}/data/v1/${currDate}`);
+		console.log(`got data for ${currDate}`)
         setAllJobs(resp.data);
         setLoading(false);
       } catch (error) {
         console.log("Error fetching jobs data:", error);
       }
     })();
-  }, []);
+  }, [currDate]);
 
   // Calculate index of the first and last item to be displayed on the current page
   const indexOfLastItem = currentPage * itemsPerPage;

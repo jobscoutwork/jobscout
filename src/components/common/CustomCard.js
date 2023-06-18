@@ -18,7 +18,7 @@ import OutlinedButton from "./OutlinedButton";
 import CircularImage from "./CircularImage";
 
 export default function CustomCard({ jobData }) {
-	console.log(jobData, "jobdata");
+	//console.log(jobData, "jobdata");
 
 	const handleClick = () => {
 		console.log("click");

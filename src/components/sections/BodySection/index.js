@@ -3,8 +3,10 @@ import BodyHeaderSection from "./BodyHeaderSection";
 import CardSection from "./CardSection";
 import FilterSection from "./FilterSection";
 import { Box, Container } from "@mui/material";
+import { useEffect, useState } from "react";
 
 export default function BodySection() {
+	const [currDate, setCurrDate] = useState(null);
 	return (
 		<div>
 			<BodyHeaderSection />
@@ -26,10 +28,10 @@ export default function BodySection() {
 						marginRight: 10,
 					}}
 				>
-					<FilterSection />
+					<FilterSection currDate={currDate}  setCurrDate={setCurrDate } />
 				</Box>
 				<Box sx={{ width: "60%" }}>
-					<CardSection />
+					<CardSection currDate={currDate} />
 				</Box>
 			</Container>
 		</div>
