@@ -5,7 +5,7 @@ import axios from "axios";
 import PageLoader from "../../common/LoadingIndicators/PageLoader";
 import dayjs from "dayjs";
 
-export default function CardSection({ currDate }) {
+export default function CardSection({ currDate ,query}) {
   //const apiUrl = 'http://13.126.41.77';
   const apiUrl = 'http://localhost';
   const [loading, setLoading] = useState(true);
@@ -26,19 +26,38 @@ export default function CardSection({ currDate }) {
           temp = 7;
         }
         const result = getPreviousDates(temp);
+        console.log(`got query ${query}`);
+        let resp;
+        if(query==' '||query==''){
+          resp = await axios.get(`${apiUrl}/data/v1/1`);
+        }else{
+          resp = await axios.get(`${apiUrl}/data/v3/${query}`);
+        }
         // const resp = await axios.get(`${apiUrl}/data/v2/${result}`);
-        const resp = await axios.get(`${apiUrl}/data/v1/1`);
+        //const resp = await axios.get(`${apiUrl}/data/v1/1`);
+        console.log('resp',resp.data);
+        // let filterData = [];
+        // for(let i=0;i<result.length;i++){
+        //   for(let i=0;i<resp.data.length;i++){
+        //     if(resp.data[i].value.createdDate==result[i]){
+        //       console.log('resp i',resp.data[i],result[i],resp.data.length);
+        //       filterData.push(resp.data[i].value);
+        //     }
+        //   }
+        // }
         console.log(`got data for ${result}`);
-        
-        let respData = resp.data;
 
+        let respData = resp.data;
+        console.log('resp',resp.data);
         setAllJobs(resp.data);
         setLoading(false);
       } catch (error) {
         console.log("Error fetching jobs data:", error);
       }
     })();
-  }, [currDate]);
+  }, [currDate,query]);
+
+
 
 	const getPreviousDates = (value) => {
 		const previousDates = [];
@@ -72,7 +91,7 @@ export default function CardSection({ currDate }) {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           {currentJobs.map((e) => (
-            <CustomCard key={e.key} jobData={e.value} />
+            <CustomCard key={e.key} jobData={e.value} currDate={currDate} setAllJobs={setAllJobs}/>
           ))}
         </Grid>
         <Grid item xs={12} mt={2}>

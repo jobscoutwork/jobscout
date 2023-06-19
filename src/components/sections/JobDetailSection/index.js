@@ -59,7 +59,7 @@ export default function JobDetailSection() {
                 title={allJobs.value.title}
                 companyName={allJobs.value.companyName}
                 locations={
-                  allJobs.value.wfhType === 0
+                  allJobs.value.wfhType === "0"
                     ? allJobs.value.locations
                     : "Remote"
                 }

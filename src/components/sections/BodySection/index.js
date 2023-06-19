@@ -7,9 +7,10 @@ import { useEffect, useState } from "react";
 
 export default function BodySection() {
 	const [currDate, setCurrDate] = useState({label: 'Today', value: 'today'});
+	const [query,setQuery] = useState('');
 	return (
 		<div>
-			<BodyHeaderSection />
+			<BodyHeaderSection setQuery={setQuery} query={query}/>
 
 			<Container
 				maxWidth="md"
@@ -31,7 +32,7 @@ export default function BodySection() {
 					<FilterSection currDate={currDate}  setCurrDate={setCurrDate } />
 				</Box>
 				<Box sx={{ width: "60%" }}>
-					<CardSection currDate={currDate} />
+					<CardSection currDate={currDate} query={query} />
 				</Box>
 			</Container>
 		</div>

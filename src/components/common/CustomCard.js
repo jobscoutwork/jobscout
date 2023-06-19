@@ -13,11 +13,11 @@ import {
 	IconButton,
 	Typography,
 } from "@mui/material";
-import React from "react";
 import OutlinedButton from "./OutlinedButton";
-import CircularImage from "./CircularImage";
+import React, { useEffect, useState } from "react";
+import dayjs from "dayjs";
 
-export default function CustomCard({ jobData }) {
+export default function CustomCard({ jobData , currDate ,setAllJobs}) {
 	console.log(jobData, "jobdata");
 
 	const handleClick = () => {
