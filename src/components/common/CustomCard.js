@@ -18,7 +18,7 @@ import OutlinedButton from "./OutlinedButton";
 import CircularImage from "./CircularImage";
 
 export default function CustomCard({ jobData }) {
-	//console.log(jobData, "jobdata");
+	console.log(jobData, "jobdata");
 
 	const handleClick = () => {
 		console.log("click");
@@ -36,7 +36,7 @@ export default function CustomCard({ jobData }) {
 	const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
 
 	// Output the result
-	console.log(`${daysDiff} days ago`);
+	//console.log(`${daysDiff} days ago`);
 
 	let dateOutput = `${daysDiff} days ago`;
 

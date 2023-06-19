@@ -16,18 +16,22 @@ export default function CardSection({ currDate }) {
   useEffect(() => {
     (async function getAllJobsData() {
       try {
-		let temp = 1;
-    console.log(`currDate ${currDate}`)
-		if(currDate.value=="today"){
-			temp = 1;
-		}else if(currDate.value="3_days_ago"){
-			temp = 3;
-		}else if(currDate.value="1_week_ago"){
-			temp = 7;
-		}
-		const result = getPreviousDates(temp);
-        const resp = await axios.get(`${apiUrl}/data/v2/${result}`);
-		console.log(`got data for ${result}`)
+        let temp = 1;
+        console.log(`currDate ${currDate}`)
+        if (currDate.value == "today") {
+          temp = 1;
+        } else if (currDate.value = "3_days_ago") {
+          temp = 3;
+        } else if (currDate.value = "1_week_ago") {
+          temp = 7;
+        }
+        const result = getPreviousDates(temp);
+        // const resp = await axios.get(`${apiUrl}/data/v2/${result}`);
+        const resp = await axios.get(`${apiUrl}/data/v1/1`);
+        console.log(`got data for ${result}`);
+        
+        let respData = resp.data;
+
         setAllJobs(resp.data);
         setLoading(false);
       } catch (error) {
